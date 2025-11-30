@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SVT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header"><div class="brand"><div class="logo">PDF</div><div><div class="title">SVT</div><div class="small">Fichiers</div></div></div>
+      <nav class="nav"><a href="index.html">Accueil</a><a href="math.html">Math</a><a href="physique.html">Physique</a><a href="svt.html" class="cta">SVT</a><a href="anglais.html">Anglais</a></nav>
+    </div>
+
+    <div class="card">
+      <h3>Liste des PDF — SVT</h3>
+      <div class="pdf-list" id="svt-list"></div>
+    </div>
+
+    <a class="back" href="index.html">⬅ Retour</a>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    const baseS = "https://kiffedaniel.github.io/pdf-storage/pdf/svt/";
+    const scount = 10;
+    const cont = document.getElementById("svt-list");
+    for(let i=1;i<=scount;i++){
+      const name = `svt (${i}).pdf`;
+      const url = encodeURI(baseS + name);
+      const div = document.createElement("div");
+      div.className = "pdf-item";
+      div.innerHTML = `<div class="left"><div class="pdf-icon">📄</div><div><div>${name}</div><div class="small">PDF | SVT</div></div></div>`;
+      const btn = document.createElement("button");
+      btn.className = "btn";
+      btn.textContent = "Télécharger";
+      btn.onclick = ()=> requestDownload(url);
+      div.appendChild(btn);
+      cont.appendChild(div);
+    }
+  </script>
+</body>
+</html>
