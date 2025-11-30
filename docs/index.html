@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents Scolaires - Téléchargements</title>
 
-    <!-- SEO -->
-    <meta name="description" content="Télécharge gratuitement des PDF scolaires : Math, Physique, SVT, Anglais. Déblocage après visionnage d'une publicité.">
-    <meta name="keywords" content="PDF, scolaire, math, physique, SVT, anglais, téléchargement">
-    <meta name="author" content="kiffedaniel">
-
-    <!-- Dark Mode Auto -->
-    <meta name="color-scheme" content="light dark">
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,33 +12,17 @@
             margin: 0;
             padding: 20px;
             text-align: center;
-            transition: 0.3s;
-        }
-
-        /* DARK MODE */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background: #111;
-                color: #eee;
-            }
-            .subject {
-                background: #222;
-                color: #fff;
-            }
-            #adBox {
-                background: #222;
-                color: #fff;
-            }
         }
 
         h1 {
             font-size: 26px;
+            color: #222;
             font-weight: 700;
         }
 
         .subject {
             background: #fff;
-            width: 95%;
+            width: 90%;
             max-width: 350px;
             padding: 15px;
             margin: 15px auto;
@@ -61,203 +37,89 @@
             transform: scale(1.03);
         }
 
+        /* LISTE PDF ALIGNÉE HORIZONTALEMENT */
         .pdf-list {
             display: none;
             margin-top: 10px;
-            text-align: left;
-            padding-left: 30px;
-        }
-
-        .pdf-list a {
-            text-decoration: none;
-            color: #0066ff;
-            font-size: 16px;
-        }
-
-        #adPopup {
+            padding: 10px;
             display: none;
-            position: fixed;
-            z-index: 99999;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-        }
-
-        #adBox {
-            background: #fff;
-            width: 90%;
-            max-width: 350px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        #timer {
-            font-size: 24px;
-            font-weight: bold;
-            color: red;
-            margin-top: 10px;
-        }
-
-        /* LOADER */
-        #loader {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: white;
-            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            z-index: 999999;
-            transition: 0.5s;
-        }
-        @media (prefers-color-scheme: dark) {
-            #loader { background: #000; }
-        }
-        .spinner {
-            border: 6px solid #ddd;
-            border-top: 6px solid #3498db;
-            border-radius: 50%;
-            width: 60px; height: 60px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            gap: 10px;
         }
 
-        /* COMPTEUR */
-        #counter {
-            font-size: 14px;
-            margin-top: 10px;
-            opacity: 0.7;
-        }
-
-        /* PUBLICITÉ 100% MOBILE */
-        .mobile-ad {
-            width: 100%;
-            margin: 15px 0;
+        .pdf-item {
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-size: 16px;
+            min-width: 140px;
             text-align: center;
-            overflow: hidden;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pdf-item:hover {
+            background: #e9f0ff;
         }
     </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader"><div class="spinner"></div></div>
-
 <h1>📚 Téléchargez vos PDF Scolaires</h1>
 
-<div id="counter">Chargement...</div>
-
 <!-- Matières -->
-<div class="subject" onclick="toggleList('math')">📐 Mathématiques</div>
+<div class="subject" onclick="toggleList('math')">📐 Mathématiques (88 PDF)</div>
 <div id="math" class="pdf-list"></div>
 
-<div class="subject" onclick="toggleList('physique')">⚡ Physique</div>
+<div class="subject" onclick="toggleList('physique')">⚡ Physique (25 PDF)</div>
 <div id="physique" class="pdf-list"></div>
 
-<div class="subject" onclick="toggleList('svt')">🧬 SVT</div>
+<div class="subject" onclick="toggleList('svt')">🧬 SVT (12 PDF)</div>
 <div id="svt" class="pdf-list"></div>
 
-<div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais</div>
+<div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais (4 PDF)</div>
 <div id="anglais" class="pdf-list"></div>
 
-<!-- PUBLICITÉ FIXÉE (VISIBILE MOBILE) -->
-<div class="mobile-ad">
-    <script async="async" data-cfasync="false"
-        src="//pl28161422.effectivegatecpm.com/c601a6886ec07d2351c0dd8219f5a26e/invoke.js"></script>
-    <div id="container-c601a6886ec07d2351c0dd8219f5a26e"></div>
-</div>
-
-<!-- Popup Pub -->
-<div id="adPopup">
-    <div id="adBox">
-        <h3>Veuillez regarder la publicité pour débloquer 2 téléchargements</h3>
-
-        <script type='text/javascript'
-            src='//pl28160917.effectivegatecpm.com/27/97/59/279759d884e45e55d162c6b2a80bef83.js'>
-        </script>
-
-        <div id="timer">20</div>
-    </div>
-</div>
-
 <script>
-    /* COMPTEUR DE VUES LOCAL */
-    let views = localStorage.getItem("views") || 0;
-    views++;
-    localStorage.setItem("views", views);
-    document.getElementById("counter").innerText = "👁 " + views + " visites";
-
-    /* LOADER */
-    window.onload = () => {
-        setTimeout(() => {
-            document.getElementById("loader").style.opacity = "0";
-            setTimeout(() => {
-                document.getElementById("loader").style.display = "none";
-            }, 500);
-        }, 700);
+    /* Quantité réelles */
+    const pdfCounts = {
+        math: 88,
+        physique: 25,
+        svt: 12,
+        anglais: 4
     };
 
-    /* TON CODE ORIGINALEMENT PRÉSENT (NON MODIFIÉ) */
+    /* 2 téléchargements après pub (sera réactivé quand tu me donneras les pubs) */
     let downloadCredits = 0;
     let fileToOpen = "";
 
-    const pdfCounts = {
-        math: 76,
-        physique: 25,
-        svt: 12,
-        anglais: 16
-    };
-
     function toggleList(subject) {
         const list = document.getElementById(subject);
+
         if (list.innerHTML === "") generatePDFList(subject);
-        list.style.display = list.style.display === "block" ? "none" : "block";
+
+        list.style.display = list.style.display === "flex" ? "none" : "flex";
     }
 
     function generatePDFList(subject) {
         let html = "";
         for (let i = 1; i <= pdfCounts[subject]; i++) {
             html += `
-                <p><a href="#" onclick="attemptDownload('${subject}', ${i})">Télécharger ${subject} (${i}).pdf</a></p>
+                <div class="pdf-item" onclick="attemptDownload('${subject}', ${i})">
+                    ${subject} (${i})
+                </div>
             `;
         }
         document.getElementById(subject).innerHTML = html;
     }
 
     function attemptDownload(subject, num) {
+        const url = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
 
-        const url =
-        `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
-
-        if (downloadCredits > 0) {
-            downloadCredits--;
-            window.open(url, "_blank");
-        } else {
-            fileToOpen = url;
-            showAd();
-        }
-    }
-
-    function showAd() {
-        document.getElementById("adPopup").style.display = "block";
-        let t = 20;
-        document.getElementById("timer").innerText = t;
-
-        let timer = setInterval(() => {
-            t--;
-            document.getElementById("timer").innerText = t;
-            if (t <= 0) {
-                clearInterval(timer);
-                document.getElementById("adPopup").style.display = "none";
-
-                downloadCredits = 2;
-                window.open(fileToOpen, "_blank");
-            }
-        }, 1000);
+        // Pour l'instant : téléchargement direct (tu veux ajouter les pubs après)
+        window.open(url, "_blank");
     }
 </script>
 
