@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents Scolaires - Téléchargements</title>
 
+    <!-- SEO -->
+    <meta name="description" content="Télécharge gratuitement des PDF scolaires : Math, Physique, SVT, Anglais. Déblocage après visionnage d'une publicité.">
+    <meta name="keywords" content="PDF, scolaire, math, physique, SVT, anglais, téléchargement">
+    <meta name="author" content="kiffedaniel">
+
+    <!-- Dark Mode Auto -->
+    <meta name="color-scheme" content="light dark">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,17 +20,33 @@
             margin: 0;
             padding: 20px;
             text-align: center;
+            transition: 0.3s;
+        }
+
+        /* DARK MODE */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #111;
+                color: #eee;
+            }
+            .subject {
+                background: #222;
+                color: #fff;
+            }
+            #adBox {
+                background: #222;
+                color: #fff;
+            }
         }
 
         h1 {
             font-size: 26px;
-            color: #222;
             font-weight: 700;
         }
 
         .subject {
             background: #fff;
-            width: 90%;
+            width: 95%;
             max-width: 350px;
             padding: 15px;
             margin: 15px auto;
@@ -61,7 +85,8 @@
 
         #adBox {
             background: #fff;
-            width: 350px;
+            width: 90%;
+            max-width: 350px;
             margin: 100px auto;
             padding: 20px;
             border-radius: 12px;
@@ -74,17 +99,59 @@
             color: red;
             margin-top: 10px;
         }
+
+        /* LOADER */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+            transition: 0.5s;
+        }
+        @media (prefers-color-scheme: dark) {
+            #loader { background: #000; }
+        }
+        .spinner {
+            border: 6px solid #ddd;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 60px; height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* COMPTEUR */
+        #counter {
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0.7;
+        }
+
+        /* PUBLICITÉ 100% MOBILE */
+        .mobile-ad {
+            width: 100%;
+            margin: 15px 0;
+            text-align: center;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
 
+<!-- LOADER -->
+<div id="loader"><div class="spinner"></div></div>
+
 <h1>📚 Téléchargez vos PDF Scolaires</h1>
 
-<!-- ⭐ TA PUBLICITÉ COLLÉE ICI ⭐ -->
-<script async="async" data-cfasync="false" src="//pl28161422.effectivegatecpm.com/c601a6886ec07d2351c0dd8219f5a26e/invoke.js"></script>
-<div id="container-c601a6886ec07d2351c0dd8219f5a26e"></div>
-<!-- ⭐ FIN DE LA PUBLICITÉ ⭐ -->
+<div id="counter">Chargement...</div>
 
+<!-- Matières -->
 <div class="subject" onclick="toggleList('math')">📐 Mathématiques</div>
 <div id="math" class="pdf-list"></div>
 
@@ -97,17 +164,44 @@
 <div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais</div>
 <div id="anglais" class="pdf-list"></div>
 
+<!-- PUBLICITÉ FIXÉE (VISIBILE MOBILE) -->
+<div class="mobile-ad">
+    <script async="async" data-cfasync="false"
+        src="//pl28161422.effectivegatecpm.com/c601a6886ec07d2351c0dd8219f5a26e/invoke.js"></script>
+    <div id="container-c601a6886ec07d2351c0dd8219f5a26e"></div>
+</div>
+
+<!-- Popup Pub -->
 <div id="adPopup">
     <div id="adBox">
         <h3>Veuillez regarder la publicité pour débloquer 2 téléchargements</h3>
 
-        <script type='text/javascript' src='//pl28160917.effectivegatecpm.com/27/97/59/279759d884e45e55d162c6b2a80bef83.js'></script>
+        <script type='text/javascript'
+            src='//pl28160917.effectivegatecpm.com/27/97/59/279759d884e45e55d162c6b2a80bef83.js'>
+        </script>
 
         <div id="timer">20</div>
     </div>
 </div>
 
 <script>
+    /* COMPTEUR DE VUES LOCAL */
+    let views = localStorage.getItem("views") || 0;
+    views++;
+    localStorage.setItem("views", views);
+    document.getElementById("counter").innerText = "👁 " + views + " visites";
+
+    /* LOADER */
+    window.onload = () => {
+        setTimeout(() => {
+            document.getElementById("loader").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("loader").style.display = "none";
+            }, 500);
+        }, 700);
+    };
+
+    /* TON CODE ORIGINALEMENT PRÉSENT (NON MODIFIÉ) */
     let downloadCredits = 0;
     let fileToOpen = "";
 
@@ -136,7 +230,8 @@
 
     function attemptDownload(subject, num) {
 
-        const url = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
+        const url =
+        `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
 
         if (downloadCredits > 0) {
             downloadCredits--;
