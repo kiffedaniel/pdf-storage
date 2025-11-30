@@ -1,82 +1,81 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Bibliothèque scolaire — Accueil</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Téléchargement PDF</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 450px;
+            margin: auto;
+            box-shadow: 0px 4px 18px rgba(0,0,0,0.15);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: #3b82f6;
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            margin-top: 15px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn:disabled {
+            background: #a5b4fc;
+            cursor: not-allowed;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .ad-container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="brand">
-        <div class="logo">PDF</div>
-        <div>
-          <div class="title">Bibliothèque scolaire</div>
-          <div class="small">Cours, résumés et fichiers utiles</div>
-        </div>
-      </div>
 
-      <nav class="nav">
-        <a href="index.html">Accueil</a>
-        <a href="math.html">Math</a>
-        <a href="physique.html">Physique</a>
-        <a href="svt.html">SVT</a>
-        <a href="anglais.html" class="cta">Anglais</a>
-      </nav>
-    </div>
+<div class="container">
+    <h2>📘 Téléchargement des PDF</h2>
+    <p>Regarde la vidéo pour débloquer 2 téléchargements.</p>
 
-    <!-- Banner top -->
-    <div class="card center" style="margin-bottom:16px;">
-      <!-- ADSTERRA 320x50 -->
-      <script type="text/javascript">
-          atOptions = {
-              'key' : 'c166889d19d8d1d5aba89e2af81a2608',
-              'format' : 'iframe',
-              'height' : 50,
-              'width' : 320,
-              'params' : {}
-          };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
-    </div>
+    <!-- 🎥 Vidéo obligatoire (20s) -->
+    <video id="adVideo" controls>
+        <source src="video.mp4" type="video/mp4">
+    </video>
 
-    <div class="grid">
-      <div class="card">
-        <h3>Mathématiques</h3>
-        <p class="small">Cours et exercices — 5 fichiers disponibles</p>
-        <a class="btn" href="math.html">Ouvrir</a>
-      </div>
+    <button id="unlockBtn" class="btn" disabled>Regarder la vidéo</button>
 
-      <div class="card">
-        <h3>Physique</h3>
-        <p class="small">Cours, TD — 25 fichiers disponibles</p>
-        <a class="btn" href="physique.html">Ouvrir</a>
-      </div>
+    <h3 style="margin-top:20px;">Choisis un PDF :</h3>
 
-      <div class="card">
-        <h3>SVT</h3>
-        <p class="small">Cours et schémas — 10 fichiers</p>
-        <a class="btn" href="svt.html">Ouvrir</a>
-      </div>
+    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/math/math%20(1).pdf" disabled>📘 Math</button>
+    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais%20(1).pdf" disabled>📗 Anglais</button>
+    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique%20(1).pdf" disabled>📙 Physique</button>
+    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt%20(1).pdf" disabled>📕 SVT</button>
 
-      <div class="card">
-        <h3>Anglais</h3>
-        <p class="small">Fiches et exercices — 5 fichiers</p>
-        <a class="btn" href="anglais.html">Ouvrir</a>
-      </div>
-    </div>
+    <p id="counter" style="margin-top:10px; font-weight:bold;">Téléchargements restants : 0</p>
 
-    <div class="footer">Vous devez regarder une pub avant d’obtenir 2 téléchargements gratuits.</div>
-  </div>
-
-  <!-- overlay popup -->
-  <div id="ad-overlay" class="overlay" role="dialog" aria-hidden="true">
-    <div class="box">
-      <div style="font-weight:700">Regarde cette publicité pour débloquer 2 téléchargements</div>
-      <div class="small" style="margin-top:8px">La publicité s'ouvrira dans un nouvel onglet. Attends <span id="ad-countdown">20</span>s.</div>
-      <div class="ad-frame" style="margin-top:14px">
-        <!-- ADSTERRA 300x250 -->
+    <!-- ⭐ PUB UNIQUE POUR NE PAS BLOQUER LE SITE -->
+    <div class="ad-container">
         <script type="text/javascript">
             atOptions = {
                 'key' : '6790f218bd77cdc05da74ea35718e7cb',
@@ -87,10 +86,50 @@
             };
         </script>
         <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<script>
+    const video = document.getElementById("adVideo");
+    const unlockBtn = document.getElementById("unlockBtn");
+    const pdfButtons = document.querySelectorAll(".pdf-btn");
+    const counter = document.getElementById("counter");
+
+    let downloadsLeft = 0;
+
+    unlockBtn.disabled = false;
+
+    unlockBtn.addEventListener("click", () => {
+        video.play();
+        unlockBtn.disabled = true;
+        unlockBtn.innerText = "Vidéo en cours...";
+    });
+
+    video.onended = () => {
+        downloadsLeft = 2;
+        counter.innerText = "Téléchargements restants : 2";
+
+        pdfButtons.forEach(btn => btn.disabled = false);
+
+        unlockBtn.innerText = "Vidéo terminée ✔️";
+    };
+
+    pdfButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (downloadsLeft > 0) {
+                window.location.href = btn.dataset.file;
+                downloadsLeft--;
+                counter.innerText = "Téléchargements restants : " + downloadsLeft;
+
+                if (downloadsLeft === 0) {
+                    pdfButtons.forEach(b => b.disabled = true);
+                    unlockBtn.innerText = "Regarder encore une vidéo";
+                    unlockBtn.disabled = false;
+                }
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
