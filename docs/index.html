@@ -3,172 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documents scolaires</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 { color: #333; }
-        .subject {
-            background: white;
-            padding: 15px;
-            margin: 15px auto;
-            width: 300px;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .pdf-list {
-            display: none;
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        #popup {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75);
-        }
-        #popup-box {
-            background: white;
-            width: 320px;
-            margin: 100px auto;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        #countdown {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 10px;
-            color: red;
-        }
-        a {
-            color: #0066cc;
-            text-decoration: none;
-        }
-    </style>
+    <title>PDF Storage</title>
 </head>
 <body>
 
-    <h1>Bienvenue ! 📚 Téléchargez vos PDF</h1>
+    <h1>Choisis une matière</h1>
 
-    <script>
-        window.onload = function() {
-            alert("Bienvenue ! Choisissez une matière pour afficher les PDF 😊");
-        }
-    </script>
-
-    <!-- BANNER AD 320x50 -->
-    <div style="margin: 20px auto;">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : 'c166889d19d8d1d5aba89e2af81a2608',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
-    </div>
-
-    <!-- Matières -->
-    <div class="subject" onclick="toggleList('math')">📐 Mathématiques</div>
-    <div id="math" class="pdf-list"></div>
-
-    <div class="subject" onclick="toggleList('physique')">⚡ Physique</div>
-    <div id="physique" class="pdf-list"></div>
-
-    <div class="subject" onclick="toggleList('svt')">🧬 SVT</div>
-    <div id="svt" class="pdf-list"></div>
-
-    <div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais</div>
-    <div id="anglais" class="pdf-list"></div>
-
-    <!-- POPUP PUB -->
-    <div id="popup">
-        <div id="popup-box">
-            <p>Veuillez patienter, une publicité s'affiche…</p>
-
-            <!-- DEUXIÈME PUB 300x250 -->
-            <div>
-                <script type="text/javascript">
-                    atOptions = {
-                        'key' : '6790f218bd77cdc05da74ea35718e7cb',
-                        'format' : 'iframe',
-                        'height' : 250,
-                        'width' : 300,
-                        'params' : {}
-                    };
-                </script>
-                <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
-            </div>
-
-            <div id="countdown">5</div>
-        </div>
-    </div>
-
-    <script>
-        const pdfCounts = {
-            math: 5,
-            physique: 25,
-            svt: 10,
-            anglais: 5
+    <!-- PUB 1 -->
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'c166889d19d8d1d5aba89e2af81a2608',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
         };
-
-        function generatePDFList(subject) {
-            let cont = document.getElementById(subject);
-            let html = "";
-
-            for (let i = 1; i <= pdfCounts[subject]; i++) {
-
-                const url = `https://kiffedaniel.github.io/pdf-storage/docs/pdf/${subject}/${subject}%20(${i}).pdf`;
-
-                html += `
-                    <p>
-                        <a href="#" onclick="openPopup('${url}')">
-                            Télécharger ${subject} (${i}).pdf
-                        </a>
-                    </p>
-                `;
-            }
-            cont.innerHTML = html;
-        }
-
-        function toggleList(subject) {
-            let box = document.getElementById(subject);
-            if (box.innerHTML === "") generatePDFList(subject);
-            box.style.display = box.style.display === "block" ? "none" : "block";
-        }
-
-        let fileToOpen = "";
-
-        function openPopup(url) {
-            fileToOpen = url;
-            document.getElementById("popup").style.display = "block";
-
-            let counter = 5;
-            document.getElementById("countdown").innerText = counter;
-
-            let timer = setInterval(() => {
-                counter--;
-                document.getElementById("countdown").innerText = counter;
-                if (counter === 0) {
-                    clearInterval(timer);
-                    window.open(fileToOpen, "_blank");
-                    document.getElementById("popup").style.display = "none";
-                }
-            }, 1000);
-        }
     </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
+
+
+    <ul>
+        <li><a href="pdf/math/math%20(1).pdf">Mathématiques</a></li>
+        <li><a href="pdf/anglais/anglais%20(1).pdf">Anglais</a></li>
+        <li><a href="pdf/physique/physique%20(1).pdf">Physique</a></li>
+        <li><a href="pdf/svt/svt%20(1).pdf">SVT</a></li>
+    </ul>
+
+
+    <!-- PUB 2 -->
+    <script type="text/javascript">
+        atOptions = {
+            'key' : '6790f218bd77cdc05da74ea35718e7cb',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
 
 </body>
 </html>
