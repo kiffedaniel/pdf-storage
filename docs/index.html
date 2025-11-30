@@ -3,132 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Téléchargement PDF</title>
+    <title>Documents Scolaires - Téléchargements</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
+            margin: 0;
             padding: 20px;
             text-align: center;
         }
 
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            max-width: 450px;
-            margin: auto;
-            box-shadow: 0px 4px 18px rgba(0,0,0,0.15);
+        h1 {
+            font-size: 26px;
+            color: #222;
+            font-weight: 700;
         }
 
-        .btn {
-            padding: 12px 20px;
-            background: #3b82f6;
-            color: white;
+        .subject {
+            background: #fff;
+            width: 90%;
+            max-width: 350px;
+            padding: 15px;
+            margin: 15px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             font-size: 18px;
-            border-radius: 8px;
             cursor: pointer;
-            border: none;
-            margin-top: 15px;
-            width: 100%;
             transition: 0.3s;
         }
 
-        .btn:disabled {
-            background: #a5b4fc;
-            cursor: not-allowed;
+        .subject:hover {
+            transform: scale(1.03);
         }
 
-        video {
-            width: 100%;
-            border-radius: 10px;
+        .pdf-list {
+            display: none;
             margin-top: 10px;
+            text-align: left;
+            padding-left: 30px;
         }
 
-        .ad-container {
-            margin-top: 20px;
+        .pdf-list a {
+            text-decoration: none;
+            color: #0066ff;
+            font-size: 16px;
+        }
+
+        /* POPUP */
+        #adPopup {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        #adBox {
+            background: #fff;
+            width: 350px;
+            margin: 100px auto;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            margin-top: 10px;
         }
     </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h2>📘 Téléchargement des PDF</h2>
-    <p>Regarde la vidéo pour débloquer 2 téléchargements.</p>
+<h1>📚 Téléchargez vos PDF Scolaires</h1>
 
-    <!-- 🎥 Vidéo obligatoire (20s) -->
-    <video id="adVideo" controls>
-        <source src="video.mp4" type="video/mp4">
-    </video>
+<!-- Matières -->
+<div class="subject" onclick="toggleList('math')">📐 Mathématiques</div>
+<div id="math" class="pdf-list"></div>
 
-    <button id="unlockBtn" class="btn" disabled>Regarder la vidéo</button>
+<div class="subject" onclick="toggleList('physique')">⚡ Physique</div>
+<div id="physique" class="pdf-list"></div>
 
-    <h3 style="margin-top:20px;">Choisis un PDF :</h3>
+<div class="subject" onclick="toggleList('svt')">🧬 SVT</div>
+<div id="svt" class="pdf-list"></div>
 
-    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/math/math%20(1).pdf" disabled>📘 Math</button>
-    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais%20(1).pdf" disabled>📗 Anglais</button>
-    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique%20(1).pdf" disabled>📙 Physique</button>
-    <button class="btn pdf-btn" data-file="https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt%20(1).pdf" disabled>📕 SVT</button>
+<div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais</div>
+<div id="anglais" class="pdf-list"></div>
 
-    <p id="counter" style="margin-top:10px; font-weight:bold;">Téléchargements restants : 0</p>
+<!-- Popup Pub -->
+<div id="adPopup">
+    <div id="adBox">
+        <h3>Veuillez regarder la publicité pour débloquer 2 téléchargements</h3>
 
-    <!-- ⭐ PUB UNIQUE POUR NE PAS BLOQUER LE SITE -->
-    <div class="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '6790f218bd77cdc05da74ea35718e7cb',
-                'format' : 'iframe',
-                'height' : 250,
-                'width' : 300,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
+        <!-- PUB VIDÉO ADSTERRA -->
+        <script type='text/javascript' src='//pl28160917.effectivegatecpm.com/27/97/59/279759d884e45e55d162c6b2a80bef83.js'></script>
+
+        <div id="timer">20</div>
     </div>
 </div>
 
 <script>
-    const video = document.getElementById("adVideo");
-    const unlockBtn = document.getElementById("unlockBtn");
-    const pdfButtons = document.querySelectorAll(".pdf-btn");
-    const counter = document.getElementById("counter");
+    let downloadCredits = 0;
+    let fileToOpen = "";
 
-    let downloadsLeft = 0;
-
-    unlockBtn.disabled = false;
-
-    unlockBtn.addEventListener("click", () => {
-        video.play();
-        unlockBtn.disabled = true;
-        unlockBtn.innerText = "Vidéo en cours...";
-    });
-
-    video.onended = () => {
-        downloadsLeft = 2;
-        counter.innerText = "Téléchargements restants : 2";
-
-        pdfButtons.forEach(btn => btn.disabled = false);
-
-        unlockBtn.innerText = "Vidéo terminée ✔️";
+    const pdfCounts = {
+        math: 76,
+        physique: 25,
+        svt: 12,
+        anglais: 16
     };
 
-    pdfButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            if (downloadsLeft > 0) {
-                window.location.href = btn.dataset.file;
-                downloadsLeft--;
-                counter.innerText = "Téléchargements restants : " + downloadsLeft;
+    function toggleList(subject) {
+        const list = document.getElementById(subject);
+        if (list.innerHTML === "") generatePDFList(subject);
+        list.style.display = list.style.display === "block" ? "none" : "block";
+    }
 
-                if (downloadsLeft === 0) {
-                    pdfButtons.forEach(b => b.disabled = true);
-                    unlockBtn.innerText = "Regarder encore une vidéo";
-                    unlockBtn.disabled = false;
-                }
+    function generatePDFList(subject) {
+        let html = "";
+        for (let i = 1; i <= pdfCounts[subject]; i++) {
+            html += `
+                <p><a href="#" onclick="attemptDownload('${subject}', ${i})">Télécharger ${subject}${i}.pdf</a></p>
+            `;
+        }
+        document.getElementById(subject).innerHTML = html;
+    }
+
+    function attemptDownload(subject, num) {
+        const url = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject}${num}.pdf`;
+
+        if (downloadCredits > 0) {
+            downloadCredits--;
+            window.open(url, "_blank");
+        } else {
+            fileToOpen = url;
+            showAd();
+        }
+    }
+
+    function showAd() {
+        document.getElementById("adPopup").style.display = "block";
+        let t = 20;
+        document.getElementById("timer").innerText = t;
+
+        let timer = setInterval(() => {
+            t--;
+            document.getElementById("timer").innerText = t;
+            if (t <= 0) {
+                clearInterval(timer);
+                document.getElementById("adPopup").style.display = "none";
+
+                downloadCredits = 2;
+                window.open(fileToOpen, "_blank");
             }
-        });
-    });
+        }, 1000);
+    }
 </script>
 
 </body>
