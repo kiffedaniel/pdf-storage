@@ -27,8 +27,6 @@
             margin-top: 10px;
             text-align: left;
         }
-
-        /* Popup pub */
         #popup {
             display: none;
             position: fixed;
@@ -67,7 +65,7 @@
         }
     </script>
 
-    <!-- BANNER AD 320x50 -->
+    <!-- PUB FIXE 320x50 -->
     <div style="margin: 20px auto;">
         <script type="text/javascript">
             atOptions = {
@@ -81,7 +79,7 @@
         <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
     </div>
 
-    <!-- Matières -->
+    <!-- MATIÈRES -->
     <div class="subject" onclick="toggleList('maths')">📐 Mathématiques</div>
     <div id="maths" class="pdf-list"></div>
 
@@ -99,7 +97,7 @@
         <div id="popup-box">
             <p>Veuillez patienter, une publicité s'affiche…</p>
 
-            <!-- DEUXIÈME PUB 300x250 -->
+            <!-- 2ᵉ PUB 300x250 -->
             <div>
                 <script type="text/javascript">
                     atOptions = {
@@ -132,14 +130,18 @@
             let html = "";
 
             for (let i = 1; i <= pdfCounts[subject]; i++) {
+
+                let pdfURL = `https://kiffedaniel.github.io/pdf-storage/docs/pdf/${subject}/${subject}${i}.pdf`;
+
                 html += `
                     <p>
-                        <a href="#" onclick="openPopup('https://kiffedaniel.github.io/pdf-storage/docs/${subject}/${subject}${i}.pdf')">
+                        <a href="#" onclick="openPopup('${pdfURL}')">
                             Télécharger ${subject}${i}.pdf
                         </a>
                     </p>
                 `;
             }
+
             cont.innerHTML = html;
         }
 
@@ -159,6 +161,7 @@
             let timer = setInterval(() => {
                 counter--;
                 document.getElementById("countdown").innerText = counter;
+
                 if (counter === 0) {
                     clearInterval(timer);
                     window.open(fileToOpen, "_blank");
@@ -170,4 +173,3 @@
 
 </body>
 </html>
-
