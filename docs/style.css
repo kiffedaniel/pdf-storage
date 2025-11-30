@@ -1,0 +1,89 @@
+:root{
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --accent:#1a73e8;
+  --muted:#6b7280;
+  --shadow: 0 8px 24px rgba(15,23,42,0.06);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.container{
+  max-width:980px;
+  margin:40px auto;
+  padding:24px;
+}
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+.logo{
+  width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#2b6ef6,#7b61ff);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+}
+.title{
+  font-size:20px;font-weight:700;
+}
+.nav{
+  display:flex;gap:10px;align-items:center;
+}
+.nav a{
+  padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:600;
+}
+.nav a.cta{background:var(--accent);color:#fff}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  padding:18px;border-radius:12px;box-shadow:var(--shadow);
+}
+.card h3{margin:0 0 8px 0;font-size:16px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.btn{
+  display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;margin-top:12px;
+}
+.pdf-item{
+  display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;background:#fbfdff;border:1px solid #eef2ff;margin-bottom:10px;
+}
+.pdf-item .left{display:flex;gap:12px;align-items:center}
+.pdf-icon{width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg,#fff,#f3f6ff);display:flex;align-items:center;justify-content:center;font-size:20px}
+.small{font-size:13px;color:var(--muted)}
+.center{text-align:center}
+.footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+
+/* popup overlay */
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:9999;padding:16px;
+}
+.overlay .box{
+  width:100%;max-width:420px;background:var(--card);padding:18px;border-radius:12px;text-align:center;box-shadow:var(--shadow);
+}
+.countdown{
+  font-size:28px;font-weight:800;color:var(--accent);margin:10px 0;
+}
+.ad-frame{
+  margin:12px auto;
+}
+
+/* responsive */
+@media (max-width:520px){
+  .header{flex-direction:column;align-items:flex-start}
+  .nav{width:100%;justify-content:space-between}
+}
