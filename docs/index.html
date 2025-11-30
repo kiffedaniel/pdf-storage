@@ -50,7 +50,6 @@
             font-size: 16px;
         }
 
-        /* POPUP */
         #adPopup {
             display: none;
             position: fixed;
@@ -81,7 +80,6 @@
 
 <h1>📚 Téléchargez vos PDF Scolaires</h1>
 
-<!-- Matières -->
 <div class="subject" onclick="toggleList('math')">📐 Mathématiques</div>
 <div id="math" class="pdf-list"></div>
 
@@ -94,12 +92,10 @@
 <div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais</div>
 <div id="anglais" class="pdf-list"></div>
 
-<!-- Popup Pub -->
 <div id="adPopup">
     <div id="adBox">
         <h3>Veuillez regarder la publicité pour débloquer 2 téléchargements</h3>
 
-        <!-- PUB VIDÉO ADSTERRA -->
         <script type='text/javascript' src='//pl28160917.effectivegatecpm.com/27/97/59/279759d884e45e55d162c6b2a80bef83.js'></script>
 
         <div id="timer">20</div>
@@ -127,14 +123,16 @@
         let html = "";
         for (let i = 1; i <= pdfCounts[subject]; i++) {
             html += `
-                <p><a href="#" onclick="attemptDownload('${subject}', ${i})">Télécharger ${subject}${i}.pdf</a></p>
+                <p><a href="#" onclick="attemptDownload('${subject}', ${i})">Télécharger ${subject} (${i}).pdf</a></p>
             `;
         }
         document.getElementById(subject).innerHTML = html;
     }
 
     function attemptDownload(subject, num) {
-        const url = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject}${num}.pdf`;
+
+        /* AJOUT DES PARENTHESES ICI */
+        const url = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
 
         if (downloadCredits > 0) {
             downloadCredits--;
