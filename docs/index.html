@@ -1,208 +1,141 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documents Scolaires - Téléchargements</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bibliothèque PDF</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 20px;
-            text-align: center;
+        body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 15px; }
+        h1 { text-align: center; }
+        h2 { margin-top: 25px; color: #222; }
+
+        .pdf-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .pdf-btn {
+            padding: 12px; background: #0057ff; color: white; border: none;
+            border-radius: 6px; font-size: 15px; cursor: pointer;
+            flex: 0 0 calc(50% - 10px); text-align: center;
+        }
+        @media (min-width: 600px) { .pdf-btn { flex: 0 0 calc(25% - 10px); } }
+
+        /* PREVIEW MODAL */
+        .modal {
+            display: none; position: fixed; z-index: 9999; left: 0; top: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background: white; margin: 5% auto; padding: 20px;
+            width: 90%; max-width: 600px; border-radius: 8px;
+        }
+        .closeBtn { float: right; font-size: 25px; cursor: pointer; }
+
+        #downloadBtn {
+            width: 100%; padding: 12px; margin-top: 10px;
+            background: green; color: white; border: none; border-radius: 6px; font-size: 18px;
         }
 
-        h1 {
-            font-size: 26px;
-            font-weight: 700;
+        /* WAITING PAGE */
+        #waitingScreen {
+            display: none; position: fixed; z-index: 99999; top: 0; left: 0;
+            width: 100%; height: 100%; background: white; text-align: center;
+            padding-top: 150px; font-size: 22px;
         }
-
-        .subject {
-            background: #fff;
-            width: 90%;
-            max-width: 350px;
-            padding: 15px;
-            margin: 15px auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Liste horizontale */
-        .pdf-list {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .pdf-item {
-            background: #fff;
-            padding: 10px 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            min-width: 130px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .pdf-item:hover {
-            background: #e9f0ff;
-        }
-
-        /* POPUP Attente */
-        #waitPopup {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.75);
-            z-index: 999999;
-            text-align: center;
-        }
-
-        #waitBox {
-            background: #fff;
-            width: 90%;
-            max-width: 350px;
-            margin: 120px auto;
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        /* Loader cercle */
         .loader {
-            border: 6px solid #ddd;
-            border-top: 6px solid #0066ff;
-            border-radius: 50%;
-            width: 55px;
-            height: 55px;
-            margin: 15px auto;
-            animation: spin 1s linear infinite;
+            border: 6px solid #eee; border-top: 6px solid #0057ff;
+            border-radius: 50%; width: 55px; height: 55px;
+            margin: 20px auto; animation: spin 1s linear infinite;
         }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        #waitText {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        #countdown {
-            font-size: 22px;
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<h1>📚 Téléchargez vos PDF Scolaires</h1>
+<h1>Bibliothèque PDF</h1>
 
-<!-- PUB 300x250 sous le titre -->
+<!-- PUB 300x250 -->
 <div style="text-align:center; margin-bottom:20px;">
 <script type="text/javascript">
-	atOptions = {
-		'key' : '6790f218bd77cdc05da74ea35718e7cb',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
+    atOptions = { 'key':'6790f218bd77cdc05da74ea35718e7cb', 'format':'iframe', 'height':250, 'width':300, 'params':{} };
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
 </div>
 
-<!-- MATIÈRES -->
-<div class="subject" onclick="toggleList('math')">📐 Mathématiques (88 PDF)</div>
-<div id="math" class="pdf-list"></div>
 
-<div class="subject" onclick="toggleList('physique')">⚡ Physique (25 PDF)</div>
-<div id="physique" class="pdf-list"></div>
+<h2>Mathématiques (88 PDF)</h2>
+<div class="pdf-container" id="math"></div>
 
-<div class="subject" onclick="toggleList('svt')">🧬 SVT (12 PDF)</div>
-<div id="svt" class="pdf-list"></div>
+<h2>Physique (25 PDF)</h2>
+<div class="pdf-container" id="physique"></div>
 
-<div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais (4 PDF)</div>
-<div id="anglais" class="pdf-list"></div>
+<h2>SVT (12 PDF)</h2>
+<div class="pdf-container" id="svt"></div>
 
-<!-- PUB Bandeau bas -->
+<h2>Anglais (4 PDF)</h2>
+<div class="pdf-container" id="anglais"></div>
+
+
+<!-- PREVIEW MODAL -->
+<div id="pdfPreviewModal" class="modal">
+    <div class="modal-content">
+        <span class="closeBtn">&times;</span>
+        <iframe id="pdfFrame" width="100%" height="500px"></iframe>
+        <button id="downloadBtn">Télécharger</button>
+    </div>
+</div>
+
+<!-- WAITING PAGE + SMARTLINK -->
+<div id="waitingScreen">
+    Veuillez patienter...<br><br>
+    <div class="loader"></div>
+</div>
+
+<!-- PUB 320x50 bas -->
 <div style="position:fixed; bottom:0; width:100%; text-align:center;">
 <script type="text/javascript">
-	atOptions = {
-		'key' : 'c166889d19d8d1d5aba89e2af81a2608',
-		'format' : 'iframe',
-		'height' : 50,
-		'width' : 320,
-		'params' : {}
-	};
+    atOptions = { 'key':'c166889d19d8d1d5aba89e2af81a2608', 'format':'iframe', 'height':50, 'width':320, 'params':{} };
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
 </div>
 
-<!-- POPUP ATTENTE -->
-<div id="waitPopup">
-    <div id="waitBox">
-        <div class="loader"></div>
-        <div id="waitText">Veuillez patienter…</div>
-        <div id="countdown">8</div>
-    </div>
-</div>
-
 <script>
-    const pdfCounts = {
-        math: 88,
-        physique: 25,
-        svt: 12,
-        anglais: 4
-    };
-
-    function toggleList(subject) {
-        const list = document.getElementById(subject);
-        if (list.innerHTML === "") generatePDFList(subject);
-        list.style.display = list.style.display === "flex" ? "none" : "flex";
-    }
-
-    function generatePDFList(subject) {
-        let html = "";
-        for (let i = 1; i <= pdfCounts[subject]; i++) {
-            html += `<div class="pdf-item" onclick="startDownload('${subject}', ${i})">${subject} (${i})</div>`;
+const counts = { math:88, physique:25, svt:12, anglais:4 };
+function loadButtons() {
+    Object.keys(counts).forEach(subject => {
+        let container = document.getElementById(subject);
+        for (let i = 1; i <= counts[subject]; i++) {
+            let btn = document.createElement("button");
+            btn.className = "pdf-btn";
+            btn.innerText = `${subject} (${i})`;
+            btn.onclick = () => previewPDF(`https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${i}).pdf`);
+            container.appendChild(btn);
         }
-        document.getElementById(subject).innerHTML = html;
-    }
+    });
+}
+loadButtons();
 
-    function startDownload(subject, num) {
-        const file = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
+function previewPDF(url) {
+    document.getElementById("pdfFrame").src = url;
+    document.getElementById("downloadBtn").onclick = () => startDownload(url);
+    document.getElementById("pdfPreviewModal").style.display = "block";
+}
 
-        // Affichage popup
-        document.getElementById("waitPopup").style.display = "block";
+document.querySelector(".closeBtn").onclick = function() {
+    document.getElementById("pdfPreviewModal").style.display = "none";
+};
 
-        // Pub obligatoire Smartlink
-        window.open("https://www.effectivegatecpm.com/x4zrx08iv?key=78f784bfb2f9e34830ed390fc0343ad8", "_blank");
+// SMARTLINK + PAGE ATTENTE
+function startDownload(url) {
+    document.getElementById("waitingScreen").style.display = "block";
 
-        // Countdown
-        let t = 8;
-        const cd = document.getElementById("countdown");
-        cd.innerText = t;
+    // SMARTLINK caché derrière le téléchargement
+    window.open("https://www.effectivegatecpm.com/x4zrx08iv?key=78f784bfb2f9e34830ed390fc0343ad8", "_blank");
 
-        let interval = setInterval(() => {
-            t--;
-            cd.innerText = t;
-            if (t <= 0) {
-                clearInterval(interval);
-                document.getElementById("waitPopup").style.display = "none";
-                window.open(file, "_blank");
-            }
-        }, 1000);
-    }
+    // Après 8s download
+    setTimeout(() => {
+        window.open(url, "_blank");
+        document.getElementById("waitingScreen").style.display = "none";
+    }, 8000);
+}
 </script>
 
 </body>
