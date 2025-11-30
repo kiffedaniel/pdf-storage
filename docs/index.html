@@ -37,7 +37,7 @@
             transform: scale(1.03);
         }
 
-        /* LISTE PDF ALIGNÉE HORIZONTALEMENT */
+        /* liste horizontale */
         .pdf-list {
             display: none;
             margin-top: 10px;
@@ -63,11 +63,35 @@
         .pdf-item:hover {
             background: #e9f0ff;
         }
+
+        /* pub bandeau bas */
+        .bottom-ad {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: transparent;
+            text-align: center;
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
 
 <h1>📚 Téléchargez vos PDF Scolaires</h1>
+
+<!-- PUB 300x250 sous le titre -->
+<div style="text-align:center; margin-bottom:20px;">
+<script type="text/javascript">
+	atOptions = {
+		'key' : '6790f218bd77cdc05da74ea35718e7cb',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
+</div>
 
 <!-- Matières -->
 <div class="subject" onclick="toggleList('math')">📐 Mathématiques (88 PDF)</div>
@@ -82,18 +106,28 @@
 <div class="subject" onclick="toggleList('anglais')">🇬🇧 Anglais (4 PDF)</div>
 <div id="anglais" class="pdf-list"></div>
 
+<!-- PUB 320x50 (bandeau bas) -->
+<div class="bottom-ad">
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'c166889d19d8d1d5aba89e2af81a2608',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
+</div>
+
+
 <script>
-    /* Quantité réelles */
     const pdfCounts = {
         math: 88,
         physique: 25,
         svt: 12,
         anglais: 4
     };
-
-    /* 2 téléchargements après pub (sera réactivé quand tu me donneras les pubs) */
-    let downloadCredits = 0;
-    let fileToOpen = "";
 
     function toggleList(subject) {
         const list = document.getElementById(subject);
@@ -116,10 +150,15 @@
     }
 
     function attemptDownload(subject, num) {
-        const url = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
+        const fileUrl = `https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${num}).pdf`;
 
-        // Pour l'instant : téléchargement direct (tu veux ajouter les pubs après)
-        window.open(url, "_blank");
+        /* OUVERTURE SMARTLINK */
+        window.open("https://www.effectivegatecpm.com/x4zrx08iv?key=78f784bfb2f9e34830ed390fc0343ad8", "_blank");
+
+        /* OUVERTURE DU PDF */
+        setTimeout(() => {
+            window.open(fileUrl, "_blank");
+        }, 800); // petit delay pour optimiser le taux de pub
     }
 </script>
 
