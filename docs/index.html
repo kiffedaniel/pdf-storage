@@ -1,44 +1,96 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Storage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Bibliothèque scolaire — Accueil</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <div class="logo">PDF</div>
+        <div>
+          <div class="title">Bibliothèque scolaire</div>
+          <div class="small">Cours, résumés et fichiers utiles</div>
+        </div>
+      </div>
 
-    <h1>Choisis une matière</h1>
+      <nav class="nav">
+        <a href="index.html">Accueil</a>
+        <a href="math.html">Math</a>
+        <a href="physique.html">Physique</a>
+        <a href="svt.html">SVT</a>
+        <a href="anglais.html" class="cta">Anglais</a>
+      </nav>
+    </div>
 
-    <!-- PUB 1 -->
-    <script type="text/javascript">
-        atOptions = {
-            'key' : 'c166889d19d8d1d5aba89e2af81a2608',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
+    <!-- Banner top -->
+    <div class="card center" style="margin-bottom:16px;">
+      <!-- ADSTERRA 320x50 -->
+      <script type="text/javascript">
+          atOptions = {
+              'key' : 'c166889d19d8d1d5aba89e2af81a2608',
+              'format' : 'iframe',
+              'height' : 50,
+              'width' : 320,
+              'params' : {}
+          };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/c166889d19d8d1d5aba89e2af81a2608/invoke.js"></script>
+    </div>
 
-    <ul>
-        <li><a href="math.html">Mathématiques</a></li>
-        <li><a href="anglais.html">Anglais</a></li>
-        <li><a href="physique.html">Physique</a></li>
-        <li><a href="svt.html">SVT</a></li>
-    </ul>
+    <div class="grid">
+      <div class="card">
+        <h3>Mathématiques</h3>
+        <p class="small">Cours et exercices — 5 fichiers disponibles</p>
+        <a class="btn" href="math.html">Ouvrir</a>
+      </div>
 
-    <!-- PUB 2 -->
-    <script type="text/javascript">
-        atOptions = {
-            'key' : '6790f218bd77cdc05da74ea35718e7cb',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-        };
-    </script>
-    <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
+      <div class="card">
+        <h3>Physique</h3>
+        <p class="small">Cours, TD — 25 fichiers disponibles</p>
+        <a class="btn" href="physique.html">Ouvrir</a>
+      </div>
 
+      <div class="card">
+        <h3>SVT</h3>
+        <p class="small">Cours et schémas — 10 fichiers</p>
+        <a class="btn" href="svt.html">Ouvrir</a>
+      </div>
+
+      <div class="card">
+        <h3>Anglais</h3>
+        <p class="small">Fiches et exercices — 5 fichiers</p>
+        <a class="btn" href="anglais.html">Ouvrir</a>
+      </div>
+    </div>
+
+    <div class="footer">Vous devez regarder une pub avant d’obtenir 2 téléchargements gratuits.</div>
+  </div>
+
+  <!-- overlay popup -->
+  <div id="ad-overlay" class="overlay" role="dialog" aria-hidden="true">
+    <div class="box">
+      <div style="font-weight:700">Regarde cette publicité pour débloquer 2 téléchargements</div>
+      <div class="small" style="margin-top:8px">La publicité s'ouvrira dans un nouvel onglet. Attends <span id="ad-countdown">20</span>s.</div>
+      <div class="ad-frame" style="margin-top:14px">
+        <!-- ADSTERRA 300x250 -->
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '6790f218bd77cdc05da74ea35718e7cb',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//www.highperformanceformat.com/6790f218bd77cdc05da74ea35718e7cb/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
