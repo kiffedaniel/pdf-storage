@@ -1,147 +1,190 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bibliothèque PDF</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bibliothèque PDF</title>
+<meta name="description" content="PDF scolaires : Math, Physique, SVT, Anglais. Miniatures générées à partir de la page 1. Téléchargement via Smartlink optimisé." />
 
-    <!-- GOOGLE ADSENSE -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5583008418926471"
+<!-- *** ADSENSE (ajouté ici) *** -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5583008418926471"
      crossorigin="anonymous"></script>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
-            margin: 0; padding: 15px;
-        }
+<!-- PDF.js (pour générer miniatures depuis page 1) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
+</script>
 
-        h1 { text-align: center; margin-bottom: 10px; }
-        h2 { margin-top: 25px; }
-
-        /* DOSSIERS */
-        .folder {
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            margin: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: flex; align-items: center; cursor: pointer;
-        }
-        .folder img {
-            width: 40px; margin-right: 15px;
-        }
-        .folder:hover {
-            background: #e6ecff;
-        }
-
-        /* PDF LISTE */
-        .pdf-list {
-            display: none;
-            margin-top: 10px;
-        }
-
-        .pdf-item {
-            width: 120px;
-            text-align: center;
-            display: inline-block;
-            margin: 8px;
-        }
-        .pdf-item img {
-            width: 100%;
-        }
-    </style>
+<style>
+  :root{
+    --bg:#f7f7f7;
+    --card:#fff;
+    --accent:#0b5cff;
+    --muted:#556;
+  }
+  *{box-sizing:border-box}
+  body{font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);margin:0;padding:18px;color:#111}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+  h1{font-size:20px;margin:0}
+  .subtitle{color:var(--muted);font-size:13px}
+  .folders{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+  .folder{
+    background:var(--card);padding:12px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(12,20,40,0.06);
+    cursor:pointer;min-width:150px;text-align:center;font-weight:700;
+  }
+  .folder small{display:block;color:var(--muted);font-weight:600;font-size:12px;margin-top:6px}
+  .pdf-section{margin-top:12px}
+  .pdf-row{
+    display:flex; gap:12px; overflow-x:auto; padding:12px 6px; align-items:flex-start;
+  }
+  .pdf-card{
+    min-width:150px; max-width:150px; background:var(--card); border-radius:10px; padding:8px;
+    box-shadow:0 6px 18px rgba(12,20,40,0.06); text-align:center; flex:0 0 auto;
+  }
+  .thumb{width:120px;height:160px;border-radius:6px;background:#f3f4f6;margin:0 auto 8px;object-fit:cover}
+  .pdf-name{font-size:13px;color:#111;margin:0 0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .download-btn{display:block;padding:8px 10px;background:var(--accent);color:#fff;border-radius:8px;border:0;font-weight:700;cursor:pointer;width:100%}
+  @media (max-width:520px){
+    .folder{min-width:48%;font-size:15px}
+    .thumb{width:100px;height:140px}
+    .pdf-card{min-width:120px}
+  }
+  .bottom-ad{position:fixed;bottom:6px;left:0;right:0;display:flex;justify-content:center;z-index:9999;padding:6px;pointer-events:auto}
+</style>
 </head>
 <body>
 
-<h1>Bibliothèque PDF</h1>
+<header>
+  <div>
+    <h1>Bibliothèque PDF</h1>
+    <div class="subtitle">Math • Physique • SVT • Anglais — miniatures générées depuis la page 1</div>
+  </div>
+</header>
 
-<!-- ADSENSE HAUT -->
-<div style="text-align:center; margin-bottom:10px;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5583008418926471"
-         data-ad-slot="1234567890"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+<div class="folders" id="folders">
+  <div class="folder" data-sub="math">📐 Mathématiques <small>88 PDFs</small></div>
+  <div class="folder" data-sub="physique">⚡ Physique <small>25 PDFs</small></div>
+  <div class="folder" data-sub="svt">🧬 SVT <small>12 PDFs</small></div>
+  <div class="folder" data-sub="anglais">🇬🇧 Anglais <small>4 PDFs</small></div>
 </div>
 
-<!-- ----- DOSSIERS ----- -->
-<div class="folder" onclick="toggleFolder('math')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png">
-    <span>Mathématiques</span>
-</div>
-<div id="math" class="pdf-list"></div>
+<div class="pdf-section" id="sections"></div>
 
-<div class="folder" onclick="toggleFolder('physique')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png">
-    <span>Physique</span>
+<div class="bottom-ad" id="bottomAd">
 </div>
-<div id="physique" class="pdf-list"></div>
-
-<div class="folder" onclick="toggleFolder('svt')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png">
-    <span>SVT</span>
-</div>
-<div id="svt" class="pdf-list"></div>
-
-<div class="folder" onclick="toggleFolder('anglais')">
-    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png">
-    <span>Anglais</span>
-</div>
-<div id="anglais" class="pdf-list"></div>
-
 
 <script>
-/*** NOMBRE DE PDF PAR DOSSIER ***/
-const counts = {
-    math: 88,
-    physique: 25,
-    svt: 12,
-    anglais: 4
-};
+const counts = { math:88, physique:25, svt:12, anglais:4 };
+const githubBase = 'https://kiffedaniel.github.io/pdf-storage/pdf';
+const smartlink = 'https://www.effectivegatecpm.com/x4zrx08iv?key=78f784bfb2f9e34830ed390fc0343ad8';
+const SMARTLINK_INTERVAL_MS = 60000;
 
-/*** CHARGEMENT AUTOMATIQUE DES PDF ***/
-function loadPDFs() {
-    Object.keys(counts).forEach(subject => {
-        let container = document.getElementById(subject);
-        for (let i = 1; i <= counts[subject]; i++) {
-            let item = document.createElement("div");
-            item.className = "pdf-item";
+function openSmartlinkOnce() {
+  try{
+    const last = Number(localStorage.getItem('last_smartlink') || 0);
+    const now = Date.now();
+    if(now - last > SMARTLINK_INTERVAL_MS) {
+      window.open(smartlink, '_blank');
+      localStorage.setItem('last_smartlink', String(now));
+      return true;
+    }
+  }catch(e){}
+  return false;
+}
 
-            item.innerHTML = `
-                <img src="https://img.icons8.com/color/200/pdf.png">
-                <div>${subject} (${i})</div>
-            `;
+function fileUrl(subject, idx){
+  const filename = `${subject} (${idx}).pdf`;
+  return `${githubBase}/${subject}/${encodeURIComponent(filename)}`;
+}
 
-            item.onclick = () => {
-                window.open(`https://kiffedaniel.github.io/pdf-storage/pdf/${subject}/${subject} (${i}).pdf`, "_blank");
-            };
+async function renderFirstPageToCanvas(url, canvas, maxWidth=120) {
+  try{
+    const loadingTask = pdfjsLib.getDocument({url});
+    const pdf = await loadingTask.promise;
+    const page = await pdf.getPage(1);
+    const viewport = page.getViewport({scale:1});
+    const scale = Math.min(1, maxWidth / viewport.width);
+    const scaledViewport = page.getViewport({scale});
+    canvas.width = scaledViewport.width;
+    canvas.height = scaledViewport.height;
+    await page.render({canvasContext:canvas.getContext('2d'), viewport:scaledViewport}).promise;
+    pdf.destroy();
+    return true;
+  }catch(e){
+    return false;
+  }
+}
 
-            container.appendChild(item);
-        }
+function makePdfCard(subject,i) {
+  const card=document.createElement('div');
+  card.className='pdf-card';
+
+  const thumb=document.createElement('canvas');
+  thumb.className='thumb';
+  card.appendChild(thumb);
+
+  const name=document.createElement('div');
+  name.className='pdf-name';
+  name.textContent=`${subject} (${i})`;
+  card.appendChild(name);
+
+  const btn=document.createElement('button');
+  btn.className='download-btn';
+  btn.textContent='Télécharger';
+  btn.onclick=()=>{
+    openSmartlinkOnce();
+    setTimeout(()=>window.open(fileUrl(subject,i),'_blank'),700);
+  };
+  card.appendChild(btn);
+
+  setTimeout(async()=>{
+    const ok=await renderFirstPageToCanvas(fileUrl(subject,i), thumb,120);
+    if(!ok){
+      const ctx=thumb.getContext('2d');
+      ctx.fillStyle='#fff';
+      ctx.fillRect(0,0,thumb.width||120,thumb.height||160);
+      ctx.fillStyle='#334155';
+      ctx.font='bold 32px sans-serif';
+      ctx.fillText('PDF',10,45);
+    }
+  },50);
+
+  return card;
+}
+
+function showFolder(subject){
+  const sec=document.getElementById('sections');
+  sec.innerHTML='';
+  const title=document.createElement('h2');
+
+  const label=
+    subject==='math' ? 'Mathématiques' :
+    subject==='physique' ? 'Physique' :
+    subject==='svt' ? 'SVT' : 'Anglais';
+
+  title.textContent=`${label} (${counts[subject]} PDF)`;
+  sec.appendChild(title);
+
+  const row=document.createElement('div');
+  row.className='pdf-row';
+
+  for(let i=1;i<=counts[subject];i++){
+    row.appendChild(makePdfCard(subject,i));
+  }
+  sec.appendChild(row);
+  row.scrollLeft=0;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.folder').forEach(el=>{
+    el.addEventListener('click',()=>{
+      showFolder(el.dataset.sub);
+      setTimeout(()=>document.getElementById('sections').scrollIntoView({behavior:'smooth'}),100);
     });
-}
-loadPDFs();
-
-/*** AFFICHER / CACHER LES DOSSIERS ***/
-function toggleFolder(id) {
-    let section = document.getElementById(id);
-    section.style.display = (section.style.display === "block") ? "none" : "block";
-}
+  });
+});
 </script>
-
-<!-- ADSENSE BAS -->
-<div style="text-align:center; margin-top:20px;">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-5583008418926471"
-         data-ad-slot="9876543210"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-
 </body>
 </html>
