@@ -1,190 +1,157 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Bibliothèque PDF</title>
-<meta name="description" content="PDF scolaires : Math, Physique, SVT, Anglais. Miniatures générées à partir de la page 1. Téléchargement via Smartlink optimisé." />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF School Library</title>
 
-<!-- *** ADSENSE (ajouté ici) *** -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5583008418926471"
-     crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 15px;
+        }
 
-<!-- PDF.js (pour générer miniatures depuis page 1) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
-<script>
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.worker.min.js';
-</script>
+        h2 {
+            margin-top: 25px;
+            color: #222;
+        }
 
-<style>
-  :root{
-    --bg:#f7f7f7;
-    --card:#fff;
-    --accent:#0b5cff;
-    --muted:#556;
-  }
-  *{box-sizing:border-box}
-  body{font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);margin:0;padding:18px;color:#111}
-  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
-  h1{font-size:20px;margin:0}
-  .subtitle{color:var(--muted);font-size:13px}
-  .folders{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:18px}
-  .folder{
-    background:var(--card);padding:12px 14px;border-radius:10px;box-shadow:0 6px 18px rgba(12,20,40,0.06);
-    cursor:pointer;min-width:150px;text-align:center;font-weight:700;
-  }
-  .folder small{display:block;color:var(--muted);font-weight:600;font-size:12px;margin-top:6px}
-  .pdf-section{margin-top:12px}
-  .pdf-row{
-    display:flex; gap:12px; overflow-x:auto; padding:12px 6px; align-items:flex-start;
-  }
-  .pdf-card{
-    min-width:150px; max-width:150px; background:var(--card); border-radius:10px; padding:8px;
-    box-shadow:0 6px 18px rgba(12,20,40,0.06); text-align:center; flex:0 0 auto;
-  }
-  .thumb{width:120px;height:160px;border-radius:6px;background:#f3f4f6;margin:0 auto 8px;object-fit:cover}
-  .pdf-name{font-size:13px;color:#111;margin:0 0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .download-btn{display:block;padding:8px 10px;background:var(--accent);color:#fff;border-radius:8px;border:0;font-weight:700;cursor:pointer;width:100%}
-  @media (max-width:520px){
-    .folder{min-width:48%;font-size:15px}
-    .thumb{width:100px;height:140px}
-    .pdf-card{min-width:120px}
-  }
-  .bottom-ad{position:fixed;bottom:6px;left:0;right:0;display:flex;justify-content:center;z-index:9999;padding:6px;pointer-events:auto}
-</style>
+        .pdf-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .pdf-btn {
+            padding: 12px;
+            background: #0057ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            flex: 0 0 calc(50% - 10px);
+            text-align: center;
+        }
+
+        @media (min-width: 600px) {
+            .pdf-btn {
+                flex: 0 0 calc(25% - 10px);
+            }
+        }
+
+        /* MODAL PREVIEW */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .closeBtn {
+            float: right;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        #downloadBtn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: green;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+        }
+    </style>
+
 </head>
 <body>
 
-<header>
-  <div>
-    <h1>Bibliothèque PDF</h1>
-    <div class="subtitle">Math • Physique • SVT • Anglais — miniatures générées depuis la page 1</div>
-  </div>
-</header>
+<h1>Bibliothèque PDF</h1>
 
-<div class="folders" id="folders">
-  <div class="folder" data-sub="math">📐 Mathématiques <small>88 PDFs</small></div>
-  <div class="folder" data-sub="physique">⚡ Physique <small>25 PDFs</small></div>
-  <div class="folder" data-sub="svt">🧬 SVT <small>12 PDFs</small></div>
-  <div class="folder" data-sub="anglais">🇬🇧 Anglais <small>4 PDFs</small></div>
+<!-- ---------- MATH ---------- -->
+<h2>Mathématiques (88 PDF)</h2>
+<div class="pdf-container">
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (1).pdf')">Math (1)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (2).pdf')">Math (2)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (3).pdf')">Math (3)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (4).pdf')">Math (4)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (5).pdf')">Math (5)</button>
 </div>
 
-<div class="pdf-section" id="sections"></div>
+<!-- ---------- PHYSIQUE ---------- -->
+<h2>Physique (25 PDF)</h2>
+<div class="pdf-container">
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (1).pdf')">Physique (1)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (2).pdf')">Physique (2)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (3).pdf')">Physique (3)</button>
+</div>
 
-<div class="bottom-ad" id="bottomAd">
+<!-- ---------- SVT ---------- -->
+<h2>SVT (12 PDF)</h2>
+<div class="pdf-container">
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt (1).pdf')">SVT (1)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt (2).pdf')">SVT (2)</button>
+</div>
+
+<!-- ---------- ANGLAIS ---------- -->
+<h2>Anglais (4 PDF)</h2>
+<div class="pdf-container">
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais (1).pdf')">Anglais (1)</button>
+    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais (2).pdf')">Anglais (2)</button>
+</div>
+
+<!-- ---------- MODAL PREVIEW ---------- -->
+<div id="pdfPreviewModal" class="modal">
+    <div class="modal-content">
+        <span class="closeBtn">&times;</span>
+        <iframe id="pdfFrame" width="100%" height="500px"></iframe>
+        <button id="downloadBtn">Télécharger</button>
+    </div>
 </div>
 
 <script>
-const counts = { math:88, physique:25, svt:12, anglais:4 };
-const githubBase = 'https://kiffedaniel.github.io/pdf-storage/pdf';
-const smartlink = 'https://www.effectivegatecpm.com/x4zrx08iv?key=78f784bfb2f9e34830ed390fc0343ad8';
-const SMARTLINK_INTERVAL_MS = 60000;
+// Smartlink + téléchargement réel
+function smartlinkBeforeDownload(realLink) {
+    // Ouvre la smartlink discrètement
+    window.open("https://www.effectivegatecpm.com/x4zrx08iv?key=78f784bfb2f9e34830ed390fc0343ad8", "_blank");
 
-function openSmartlinkOnce() {
-  try{
-    const last = Number(localStorage.getItem('last_smartlink') || 0);
-    const now = Date.now();
-    if(now - last > SMARTLINK_INTERVAL_MS) {
-      window.open(smartlink, '_blank');
-      localStorage.setItem('last_smartlink', String(now));
-      return true;
-    }
-  }catch(e){}
-  return false;
+    // Attente puis téléchargement réel
+    setTimeout(() => {
+        window.location.href = realLink;
+    }, 1200);
 }
 
-function fileUrl(subject, idx){
-  const filename = `${subject} (${idx}).pdf`;
-  return `${githubBase}/${subject}/${encodeURIComponent(filename)}`;
+function previewPDF(url) {
+    document.getElementById("pdfFrame").src = url;
+
+    // Smartlink intégrée ici
+    document.getElementById("downloadBtn").onclick = () => smartlinkBeforeDownload(url);
+
+    document.getElementById("pdfPreviewModal").style.display = "block";
 }
 
-async function renderFirstPageToCanvas(url, canvas, maxWidth=120) {
-  try{
-    const loadingTask = pdfjsLib.getDocument({url});
-    const pdf = await loadingTask.promise;
-    const page = await pdf.getPage(1);
-    const viewport = page.getViewport({scale:1});
-    const scale = Math.min(1, maxWidth / viewport.width);
-    const scaledViewport = page.getViewport({scale});
-    canvas.width = scaledViewport.width;
-    canvas.height = scaledViewport.height;
-    await page.render({canvasContext:canvas.getContext('2d'), viewport:scaledViewport}).promise;
-    pdf.destroy();
-    return true;
-  }catch(e){
-    return false;
-  }
-}
-
-function makePdfCard(subject,i) {
-  const card=document.createElement('div');
-  card.className='pdf-card';
-
-  const thumb=document.createElement('canvas');
-  thumb.className='thumb';
-  card.appendChild(thumb);
-
-  const name=document.createElement('div');
-  name.className='pdf-name';
-  name.textContent=`${subject} (${i})`;
-  card.appendChild(name);
-
-  const btn=document.createElement('button');
-  btn.className='download-btn';
-  btn.textContent='Télécharger';
-  btn.onclick=()=>{
-    openSmartlinkOnce();
-    setTimeout(()=>window.open(fileUrl(subject,i),'_blank'),700);
-  };
-  card.appendChild(btn);
-
-  setTimeout(async()=>{
-    const ok=await renderFirstPageToCanvas(fileUrl(subject,i), thumb,120);
-    if(!ok){
-      const ctx=thumb.getContext('2d');
-      ctx.fillStyle='#fff';
-      ctx.fillRect(0,0,thumb.width||120,thumb.height||160);
-      ctx.fillStyle='#334155';
-      ctx.font='bold 32px sans-serif';
-      ctx.fillText('PDF',10,45);
-    }
-  },50);
-
-  return card;
-}
-
-function showFolder(subject){
-  const sec=document.getElementById('sections');
-  sec.innerHTML='';
-  const title=document.createElement('h2');
-
-  const label=
-    subject==='math' ? 'Mathématiques' :
-    subject==='physique' ? 'Physique' :
-    subject==='svt' ? 'SVT' : 'Anglais';
-
-  title.textContent=`${label} (${counts[subject]} PDF)`;
-  sec.appendChild(title);
-
-  const row=document.createElement('div');
-  row.className='pdf-row';
-
-  for(let i=1;i<=counts[subject];i++){
-    row.appendChild(makePdfCard(subject,i));
-  }
-  sec.appendChild(row);
-  row.scrollLeft=0;
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.folder').forEach(el=>{
-    el.addEventListener('click',()=>{
-      showFolder(el.dataset.sub);
-      setTimeout(()=>document.getElementById('sections').scrollIntoView({behavior:'smooth'}),100);
-    });
-  });
-});
+document.querySelector(".closeBtn").onclick = function() {
+    document.getElementById("pdfPreviewModal").style.display = "none";
+};
 </script>
+
 </body>
 </html>
