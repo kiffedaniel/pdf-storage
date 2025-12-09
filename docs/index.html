@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF School Library</title>
 
-    <!-- ✅ META AdSense -->
+    <!-- META AdSense -->
     <meta name="google-adsense-account" content="ca-pub-5583008418926471">
 
-    <!-- ✅ SCRIPT AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5583008418926471"
-    crossorigin="anonymous"></script>
+    <!-- SCRIPT AdSense global -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5583008418926471" crossorigin="anonymous"></script>
 
     <style>
         body {
@@ -44,11 +43,10 @@
         }
 
         @media (min-width: 600px) {
-            .pdf-btn {
-                flex: 0 0 calc(25% - 10px);
-            }
+            .pdf-btn { flex: 0 0 calc(25% - 10px); }
         }
 
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -92,63 +90,83 @@
 
 <h1>Bibliothèque PDF</h1>
 
-<!-- ⭐️⭐️⭐️ BLOC ANNONCE 1 (auto) ⭐️⭐️⭐️ -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-5583008418926471"
-     data-ad-slot="3783049488"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+<!-- ================== BLOC PUB (haut) ================== -->
+<div style="margin:20px 0;">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-5583008418926471"
+         data-ad-slot="3783049488"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+</div>
 
 
-<!-- ---------- MATH ---------- -->
+<!-- ================== MATH (88 PDFs) ================== -->
 <h2>Mathématiques (88 PDF)</h2>
 <div class="pdf-container">
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (1).pdf')">Math (1)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (2).pdf')">Math (2)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (3).pdf')">Math (3)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (4).pdf')">Math (4)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (5).pdf')">Math (5)</button>
+<script>
+document.write(
+    Array.from({length: 88}, (_, i) =>
+        `<button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/math/math (${i+1}).pdf')">Math (${i+1})</button>`
+    ).join("")
+);
+</script>
 </div>
 
-<!-- ⭐️⭐️⭐️ BLOC ANNONCE 2 (in-article) ⭐️⭐️⭐️ -->
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-5583008418926471"
-     data-ad-slot="9322316622"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 
-
-<!-- ---------- PHYSIQUE ---------- -->
+<!-- ================== PHYSIQUE (25 PDFs) ================== -->
 <h2>Physique (25 PDF)</h2>
 <div class="pdf-container">
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (1).pdf')">Physique (1)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (2).pdf')">Physique (2)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (3).pdf')">Physique (3)</button>
+<script>
+document.write(
+    Array.from({length: 25}, (_, i) =>
+        `<button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/physique/physique (${i+1}).pdf')">Physique (${i+1})</button>`
+    ).join("")
+);
+</script>
 </div>
 
-<!-- ---------- SVT ---------- -->
+
+<!-- ================== SVT (12 PDFs) ================== -->
 <h2>SVT (12 PDF)</h2>
 <div class="pdf-container">
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt (1).pdf')">SVT (1)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt (2).pdf')">SVT (2)</button>
+<script>
+document.write(
+    Array.from({length: 12}, (_, i) =>
+        `<button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/svt/svt (${i+1}).pdf')">SVT (${i+1})</button>`
+    ).join("")
+);
+</script>
 </div>
 
-<!-- ---------- ANGLAIS ---------- -->
+
+<!-- ================== ANGLAIS (4 PDFs) ================== -->
 <h2>Anglais (4 PDF)</h2>
 <div class="pdf-container">
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais (1).pdf')">Anglais (1)</button>
-    <button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais (2).pdf')">Anglais (2)</button>
+<script>
+document.write(
+    Array.from({length: 4}, (_, i) =>
+        `<button class="pdf-btn" onclick="previewPDF('https://kiffedaniel.github.io/pdf-storage/pdf/anglais/anglais (${i+1}).pdf')">Anglais (${i+1})</button>`
+    ).join("")
+);
+</script>
 </div>
 
-<!-- ---------- MODAL PREVIEW ---------- -->
+
+<!-- ================== BLOC PUB (bas) ================== -->
+<div style="margin:20px 0;">
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-5583008418926471"
+         data-ad-slot="9322316622"></ins>
+    <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+</div>
+
+
+<!-- ================ MODAL PDF PREVIEW ================= -->
 <div id="pdfPreviewModal" class="modal">
     <div class="modal-content">
         <span class="closeBtn">&times;</span>
@@ -156,6 +174,7 @@
         <button id="downloadBtn">Télécharger</button>
     </div>
 </div>
+
 
 <script>
 // Smartlink + téléchargement réel
